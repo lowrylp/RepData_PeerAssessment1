@@ -1,9 +1,4 @@
----
-title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
----
+# Reproducible Research: Peer Assessment 1
 
 Report by: lowrylp   
 Date: 10/18/2014
@@ -19,7 +14,8 @@ Show any code that is needed to:
 2. process/transform the data into formats suitable for analysis   
 
 
-```{r}
+
+```r
 # Setup the environment and load the data
 setwd("R:/RepData_PeerAssessment1")
 library(timeDate)
@@ -43,7 +39,8 @@ For this part of the assignment, ignore the missing values in the origina datase
 #### 1. Make a histogram of the total number of steps taken each day
 
   
-```{r}
+
+```r
 aggrData <- aggregate(rdata$steps, list(rdata$date), FUN=sum)
 
 hist(aggrData$x, col=myColor, main='Histogram - Total Steps Per Day', 
@@ -51,21 +48,25 @@ hist(aggrData$x, col=myColor, main='Histogram - Total Steps Per Day',
     xlim=c(0,25000), ylim=c(0, 12), breaks=18)
 ```
 
+![plot of chunk unnamed-chunk-2](./PA1_template_files/figure-html/unnamed-chunk-2.png) 
+
 #### 2. Calculate and report the mean and median total number of step taken per day
 
-```{r}
+
+```r
 meanSteps <- mean(aggrData$x)
 medianSteps <- median(aggrData$x)
 ```
- The mean steps per day: **`r format(meanSteps,nsmall=2) `**  
- The median steps per day: **`r format(medianSteps,nsmall=2) `**  
+ The mean steps per day: **10766.19**  
+ The median steps per day: **10765**  
 
 
 ## What is the average daily activity pattern?
 
 #### 1. Make a time series plot(i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
 
-```{r}
+
+```r
 tpSteps <- aggregate(rdata$steps, list(rdata$interval), mean)
 
 plot(tpSteps$Group.1, tpSteps$x, type='l', col=myColor,
@@ -74,12 +75,15 @@ plot(tpSteps$Group.1, tpSteps$x, type='l', col=myColor,
      main='Mean Steps or Each 5 Minute Interval for All Days')
 ```
 
+![plot of chunk unnamed-chunk-4](./PA1_template_files/figure-html/unnamed-chunk-4.png) 
+
 #### 2. Which 5-minute interval on average acrosss all the days in the dataset, contains the maximum number of steps?
-```{r}
+
+```r
 maxVal <- max(tpSteps$x)     
 maxInt <- subset(tpSteps, x == maxVal)[,1]
 ```
-The interval with the maximum number of steps is **`r maxInt`**  
+The interval with the maximum number of steps is **835**  
 
 
 
@@ -89,11 +93,12 @@ values (coded as `NA`). The presence of missing days may introduce
 bias into some calculations or summaries of the data.
 
 #### 1. Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with `NA`s)
-```{r}
+
+```r
 # Imputing missing values
 numMissing <- nrow(sdata) - nrow(rdata)
 ```
-The number of missing values is: **`r numMissing`**   
+The number of missing values is: **2304**   
 
 
 #### 2. Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.
@@ -101,7 +106,8 @@ The number of missing values is: **`r numMissing`**
 Loop through the dataset and replace the NA's with the value from prior data set with the mean total steps for that time period
 
 #### 3. Create a new dataset that is equal to the original dataset but with the missing data filled in.
-```{r}
+
+```r
 # Copy the original dataset
 adjdata <- sdata
 
@@ -114,14 +120,19 @@ for (r in 1:nrow(adjdata)) {
 ```
 
 4. Make a histogram of the total number of steps taken each day and Calculate and report the **mean** and **median** total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
-```{r}
+
+```r
 # Aggregate it for the historgram
 aggrData2 <- aggregate(adjdata$steps, list(adjdata$date), FUN=sum)
 
 hist(aggrData2$x, col=myColor, main='Histogram - Total Steps Per Day\nMissing Data Interpreted', 
     ylab='# Days', xlab='Steps Per Day',
     xlim=c(0,25000), ylim=c(0, 12), breaks=18)
+```
 
+![plot of chunk unnamed-chunk-8](./PA1_template_files/figure-html/unnamed-chunk-8.png) 
+
+```r
 meanSteps2 <- mean(aggrData2$x)
 medianSteps2 <- median(aggrData2$x)
 
@@ -131,14 +142,14 @@ deltamedian <- medianSteps - medianSteps2
 pctDifMean <- deltamean / meanSteps
 pctDifMedian <- deltamedian / medianSteps
 ```
- The adjusted mean steps per day: **`r format(meanSteps2,nsmall=2) `**  
- The adjusted median steps per day: **`r format(medianSteps2,nsmall=2) `**  
+ The adjusted mean steps per day: **10766.19**  
+ The adjusted median steps per day: **10766.19**  
 
 In comparing these adjusted values to the original values:  
- * Mean steps per day: **`r format(meanSteps,nsmall=2)`** versus **`r format(meanSteps2,nsmall=2)`** 
- with Delta **`r format(deltamean,nsmall=2)`** with percent difference **`r format(pctDifMean,nsmall=2)`**   
- * Median steps per day: **`r format(medianSteps,nsmall=2)`** versus **`r format(medianSteps2,nsmall=2)`** 
- with Delta **`r format(deltamedian,nsmall=2)`** with percent difference **`r format(pctDifMedian,nsmall=2)`**   
+ * Mean steps per day: **10766.19** versus **10766.19** 
+ with Delta **0.00** with percent difference **0.00**   
+ * Median steps per day: **10765** versus **10766.19** 
+ with Delta **-1.189** with percent difference **-0.0001104**   
 
 Filling in the NA's made no significant impact on the analysis.
    
@@ -149,7 +160,8 @@ For this part the `weekdays()` function may be of some help here. Use
 the dataset with the filled-in missing values for this part.
 
 1. Create a new factor variable in the dataset with two levels -- "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
-```{r}
+
+```r
 # Add the Day of Week field to the dataset
 adjdata$daytype <- ''
 
@@ -169,7 +181,8 @@ aggrData3 <- aggregate(adjdata$steps, list(adjdata$interval, adjdata$daytype), F
 
 2. Make a panel plot containing a time series plot (i.e. `type = "l"`) of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). 
 
-```{r}
+
+```r
 # Fix the field names to make the charting easier
 colnames(aggrData3)[1] <- 'Intervals'
 colnames(aggrData3)[2] <- 'DayType'
@@ -183,3 +196,5 @@ ggplot(data=aggrData3, aes(x=Intervals, y=Steps)) +
     theme(axis.title.y=element_text(size=15), axis.title.x=element_text(size=15)) +
     theme(plot.title=element_text(size=15))
 ```
+
+![plot of chunk unnamed-chunk-10](./PA1_template_files/figure-html/unnamed-chunk-10.png) 
