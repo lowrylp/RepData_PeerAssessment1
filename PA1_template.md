@@ -1,3 +1,10 @@
+---
+title: "Reproducible Research: Peer Assessment 1"
+output: 
+  html_document:
+    keep_md: true
+---
+
 # Reproducible Research: Peer Assessment 1
 
 Report by: lowrylp   
@@ -48,7 +55,7 @@ hist(aggrData$x, col=myColor, main='Histogram - Total Steps Per Day',
     xlim=c(0,25000), ylim=c(0, 12), breaks=18)
 ```
 
-![plot of chunk unnamed-chunk-2](./PA1_template_files/figure-html/unnamed-chunk-2.png) 
+![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2.png) 
 
 #### 2. Calculate and report the mean and median total number of step taken per day
 
@@ -75,7 +82,7 @@ plot(tpSteps$Group.1, tpSteps$x, type='l', col=myColor,
      main='Mean Steps or Each 5 Minute Interval for All Days')
 ```
 
-![plot of chunk unnamed-chunk-4](./PA1_template_files/figure-html/unnamed-chunk-4.png) 
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4.png) 
 
 #### 2. Which 5-minute interval on average acrosss all the days in the dataset, contains the maximum number of steps?
 
@@ -130,7 +137,7 @@ hist(aggrData2$x, col=myColor, main='Histogram - Total Steps Per Day\nMissing Da
     xlim=c(0,25000), ylim=c(0, 12), breaks=18)
 ```
 
-![plot of chunk unnamed-chunk-8](./PA1_template_files/figure-html/unnamed-chunk-8.png) 
+![plot of chunk unnamed-chunk-8](figure/unnamed-chunk-8.png) 
 
 ```r
 meanSteps2 <- mean(aggrData2$x)
@@ -197,4 +204,4 @@ ggplot(data=aggrData3, aes(x=Intervals, y=Steps)) +
     theme(plot.title=element_text(size=15))
 ```
 
-![plot of chunk unnamed-chunk-10](./PA1_template_files/figure-html/unnamed-chunk-10.png) 
+![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10.png) 
