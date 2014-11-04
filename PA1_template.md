@@ -8,7 +8,7 @@ output:
 # Reproducible Research: Peer Assessment 1
 
 Report by: lowrylp   
-Date: 10/18/2014
+Date: 11/3/2014
 
 This report (Peer Assignment 1) is an analysis of step data collected over a period of time.
 The step counts are reported in 5 minute inervals over a given day in the data set.  The data 
