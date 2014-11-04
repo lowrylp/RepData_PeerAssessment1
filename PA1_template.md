@@ -51,7 +51,7 @@ For this part of the assignment, ignore the missing values in the origina datase
 aggrData <- aggregate(rdata$steps, list(rdata$date), FUN=sum)
 
 hist(aggrData$x, col=myColor, main='Histogram - Total Steps Per Day', 
-    ylab='# Days', xlab='Steps Per Day',
+    ylab='Frequency (# Days with Step Count)', xlab='Steps Per Day',
     xlim=c(0,25000), ylim=c(0, 12), breaks=18)
 ```
 
@@ -110,7 +110,7 @@ The number of missing values is: **2304**
 
 #### 2. Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.
 
-Loop through the dataset and replace the NA's with the value from prior data set with the mean total steps for that time period
+Loop through the dataset and replace the NA's with the value from the prior data set using the mean total steps for the corresponding time period.
 
 #### 3. Create a new dataset that is equal to the original dataset but with the missing data filled in.
 
@@ -133,7 +133,7 @@ for (r in 1:nrow(adjdata)) {
 aggrData2 <- aggregate(adjdata$steps, list(adjdata$date), FUN=sum)
 
 hist(aggrData2$x, col=myColor, main='Histogram - Total Steps Per Day\nMissing Data Interpreted', 
-    ylab='# Days', xlab='Steps Per Day',
+    ylab='Frequency (# Days with Step Count)', xlab='Steps Per Day',
     xlim=c(0,25000), ylim=c(0, 12), breaks=18)
 ```
 

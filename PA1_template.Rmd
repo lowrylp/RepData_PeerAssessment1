@@ -45,11 +45,11 @@ For this part of the assignment, ignore the missing values in the origina datase
 #### 1. Make a histogram of the total number of steps taken each day
 
   
-```{r}
+```{r fig.width=11, fig.height=6}
 aggrData <- aggregate(rdata$steps, list(rdata$date), FUN=sum)
 
 hist(aggrData$x, col=myColor, main='Histogram - Total Steps Per Day', 
-    ylab='# Days', xlab='Steps Per Day',
+    ylab='Frequency (# Days with Step Count)', xlab='Steps Per Day',
     xlim=c(0,25000), ylim=c(0, 12), breaks=18)
 ```
 
@@ -67,7 +67,7 @@ medianSteps <- median(aggrData$x)
 
 #### 1. Make a time series plot(i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
 
-```{r}
+```{r fig.width=11, fig.height=6}
 tpSteps <- aggregate(rdata$steps, list(rdata$interval), mean)
 
 plot(tpSteps$Group.1, tpSteps$x, type='l', col=myColor,
@@ -100,7 +100,7 @@ The number of missing values is: **`r numMissing`**
 
 #### 2. Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.
 
-Loop through the dataset and replace the NA's with the value from prior data set with the mean total steps for that time period
+Loop through the dataset and replace the NA's with the value from the prior data set using the mean total steps for the corresponding time period.
 
 #### 3. Create a new dataset that is equal to the original dataset but with the missing data filled in.
 ```{r}
@@ -116,12 +116,12 @@ for (r in 1:nrow(adjdata)) {
 ```
 
 4. Make a histogram of the total number of steps taken each day and Calculate and report the **mean** and **median** total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
-```{r}
+```{r fig.width=11, fig.height=6}
 # Aggregate it for the historgram
 aggrData2 <- aggregate(adjdata$steps, list(adjdata$date), FUN=sum)
 
 hist(aggrData2$x, col=myColor, main='Histogram - Total Steps Per Day\nMissing Data Interpreted', 
-    ylab='# Days', xlab='Steps Per Day',
+    ylab='Frequency (# Days with Step Count)', xlab='Steps Per Day',
     xlim=c(0,25000), ylim=c(0, 12), breaks=18)
 
 meanSteps2 <- mean(aggrData2$x)
@@ -171,7 +171,7 @@ aggrData3 <- aggregate(adjdata$steps, list(adjdata$interval, adjdata$daytype), F
 
 2. Make a panel plot containing a time series plot (i.e. `type = "l"`) of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). 
 
-```{r}
+```{r fig.width=11, fig.height=7}
 # Fix the field names to make the charting easier
 colnames(aggrData3)[1] <- 'Intervals'
 colnames(aggrData3)[2] <- 'DayType'
